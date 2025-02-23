@@ -1,0 +1,13 @@
+from fastapi import FastAPI
+import pandas as pd
+import json
+
+app = FastAPI()
+
+@app.get("/anomalies")
+def get_anomalies():
+    df = pd.read_csv("anomalies.csv")
+    return df.to_dict(orient="records")
+
+if __name__ == "__main__":
+    app.run(debug=True)
