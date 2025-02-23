@@ -1,0 +1,15 @@
+from transformers import pipeline
+import requests
+
+sentiment_analyzer = pipeline("sentiment-analysis")
+
+def get_stock_news(stock_symbol):
+    url = f"https://newsapi.org/v2/everything?q={stock_symbol}&apiKey=YOUR_NEWS_API_KEY"
+    response = requests.get(url).json()
+    return response['articles'][0]['title']
+
+stock_symbol = "TSLA"
+news_headline = get_stock_news(stock_symbol)
+sentiment_score = sentiment_analyzer(news_headline)
+
+print(f"Stock: {stock_symbol} | News Sentiment: {sentiment_score}")
